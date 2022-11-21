@@ -50,6 +50,7 @@ const main = async () => {
     ServerCredentials.createInsecure(),
     () => {
       server.start();
+      console.log("server running on port", port);
     }
   );
 };
