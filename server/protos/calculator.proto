@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package calculator;
+
+service Calculator {
+  rpc AddNums (AddRequest) returns (AddReply) {}
+}
+
+message AddRequest {
+    float num1 = 1;
+    float num2 = 2;
+}
+
+message AddReply {
+    float num = 1;
+}

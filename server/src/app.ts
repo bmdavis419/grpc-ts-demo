@@ -8,7 +8,7 @@ import {
 import { loadSync } from "@grpc/proto-loader";
 
 // load grpc
-const PROTO_PATH = "../protos/calculator.proto";
+const PROTO_PATH = __dirname + "/../protos/calculator.proto";
 const packageDefinition = loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,
