@@ -1,7 +1,7 @@
 import { credentials, loadPackageDefinition, Metadata } from "@grpc/grpc-js";
 import { loadSync } from "@grpc/proto-loader";
 
-const PROTO_PATH = __dirname + "/../../protos/calculator.proto";
+const PROTO_PATH = "../protos/calculator.proto";
 const packageDefinition = loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,

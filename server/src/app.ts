@@ -8,7 +8,7 @@ import {
 import { loadSync } from "@grpc/proto-loader";
 
 // load grpc
-const PROTO_PATH = __dirname + "/../../protos/calculator.proto";
+const PROTO_PATH = "../protos/calculator.proto";
 const packageDefinition = loadSync(PROTO_PATH, {
   keepCase: true,
   longs: String,
@@ -28,7 +28,7 @@ const addNums = (
 
   // check api key
   const expected_api_key = process.env.API_KEY || "12345";
-  if (api_key.length === 0 || api_key[0] !== "12345") {
+  if (api_key.length === 0 || api_key[0] !== expected_api_key) {
     return callback({
       code: 401,
       message: "Unauthorized",
