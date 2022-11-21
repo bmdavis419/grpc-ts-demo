@@ -20,11 +20,21 @@ const calc_proto = loadPackageDefinition(packageDefinition).calculator;
 
 // implement the add method
 const addNums = (
-  call: ServerUnaryCall<any, any>,
-  callback: sendUnaryData<any>
+  call: ServerUnaryCall<{ num1: number; num2: number }, { num: number }>,
+  callback: sendUnaryData<{ num: number }>
 ) => {
   const { num1, num2 } = call.request;
-  console.log(typeof num1);
+  const api_key = call.metadata.get("x-api-key");
+
+  // check api key
+  const expected_api_key = process.env.API_KEY || "12345";
+  if (api_key.length === 0 || api_key[0] !== "12345") {
+    return callback({
+      code: 401,
+      message: "Unauthorized",
+    });
+  }
+
   callback(null, { num: num1 + num2 });
 };
 
@@ -33,9 +43,15 @@ const main = async () => {
 
   server.addService((calc_proto as any).Calculator.service, { addNums });
 
-  server.bindAsync("0.0.0.0:50051", ServerCredentials.createInsecure(), () => {
-    server.start();
-  });
+  const port = process.env.PORT || 50051;
+
+  server.bindAsync(
+    "0.0.0.0:" + port,
+    ServerCredentials.createInsecure(),
+    () => {
+      server.start();
+    }
+  );
 };
 
 main();
