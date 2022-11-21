@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package calculator;
+
+service Calculator {
+  rpc AddNums (AddRequest) returns (AddReply) {}
+}
+
+message AddRequest {
+    int64 num1 = 1;
+    int64 num2 = 2;
+}
+
+message AddReply {
+    int64 num = 1;
+}
